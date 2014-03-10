@@ -16,6 +16,7 @@ NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
 NeoBundle 'git://github.com/Shougo/unite.vim.git'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'mattn/emmet-vim'
+NeoBundle 'git://github.com/miripiruni/CSScomb-for-Vim.git'
 
 filetype plugin on
 filetype indent on
