@@ -25,10 +25,10 @@ filetype indent on
 "---------------------------------------------------------------------------
 
 " バックアップファイル 
-set backupdir=/Users/tachibana/vimbackup
+set backupdir=~/vimbackup
 
 " スワップファイル
-set directory=/Users/tachibana/vimbackup
+set directory=~/vimbackup
 
 " カラーラベルを削除しないように、バックアップをしないようにする
 set nowritebackup
