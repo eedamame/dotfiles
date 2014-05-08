@@ -30,6 +30,9 @@ set backupdir=~/vimbackup
 " スワップファイル
 set directory=~/vimbackup
 
+" undoファイル
+set undodir=~/vimundo
+
 " カラーラベルを削除しないように、バックアップをしないようにする
 set nowritebackup
 set nobackup
