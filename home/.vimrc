@@ -11,16 +11,21 @@ if has('vim_starting')
 endif
 
 NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'git://github.com/Shougo/neocomplcache.git'
-NeoBundle 'git://github.com/Shougo/neobundle.vim.git'
-NeoBundle 'git://github.com/Shougo/unite.vim.git'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'mattn/emmet-vim'
-NeoBundle 'git://github.com/miripiruni/CSScomb-for-Vim.git'
+NeoBundle 'miripiruni/CSScomb-for-Vim'
+NeoBundle 'kannokanno/previm.git'
+NeoBundle 'tyru/open-browser.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'thinca/vim-quickrun'
 
 filetype plugin on
 filetype indent on
 
+NeoBundleCheck
 
 "---------------------------------------------------------------------------
 
@@ -114,3 +119,22 @@ function! s:vimrc_local(loc)
     source `=i`
   endfor
 endfunction
+
+" previmでmarkdownファイルのプレビュー
+" let g:previm_open_cmd = 'open -a Chrome'
+augroup PrevimSettings
+    autocmd!
+    autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
+augroup END
+
+" open-browser.vim
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+
+" syntastic
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+" let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['html'], 'passive_filetypes': ['html'] }
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_javascript_checker = 'jshint'
