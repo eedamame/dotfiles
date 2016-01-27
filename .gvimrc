@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 18-Oct-2013.
+" Last Change: 16-Jun-2015.
 " Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
 " 解説:
@@ -157,7 +157,7 @@ set formatoptions+=mM
 " GUI固有ではない画面表示の設定:
 "
 " 行番号を非表示 (number:表示)
-set nonumber
+"set nonumber
 " ルーラーを表示 (noruler:非表示)
 set ruler
 " タブや改行を表示 (list:表示)
@@ -174,8 +174,6 @@ set cmdheight=2
 set showcmd
 " タイトルを表示
 set title
-" 画面を黒地に白にする (次行の先頭の " を削除すれば有効になる)
-"colorscheme evening " (Windows用gvim使用時はgvimrcを編集すること)
 
 "---------------------------------------------------------------------------
 " ファイル操作に関する設定:
@@ -191,41 +189,6 @@ set nobackup
 if filereadable($VIM . '/vimrc') && filereadable($VIM . '/ViMrC')
   " tagsファイルの重複防止
   set tags=./tags,tags
-endif
-
-"---------------------------------------------------------------------------
-" コンソールでのカラー表示のための設定(暫定的にUNIX専用)
-if has('unix') && !has('gui_running') && !has('gui_macvim')
-  let uname = system('uname')
-  if uname =~? "linux"
-    set term=builtin_linux
-  elseif uname =~? "freebsd"
-    set term=builtin_cons25
-  elseif uname =~? "Darwin"
-    set term=beos-ansi
-  else
-    set term=builtin_xterm
-  endif
-  unlet uname
-endif
-
-"---------------------------------------------------------------------------
-" コンソール版で環境変数$DISPLAYが設定されていると起動が遅くなる件へ対応
-if !has('gui_running') && has('xterm_clipboard')
-  set clipboard=exclude:cons\\\|linux\\\|cygwin\\\|rxvt\\\|screen
-endif
-
-"---------------------------------------------------------------------------
-" プラットホーム依存の特別な設定
-
-" WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
-if has('win32') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
-  let $PATH = $VIM . ';' . $PATH
-endif
-
-if has('mac')
-  " Macではデフォルトの'iskeyword'がcp932に対応しきれていないので修正
-  set iskeyword=@,48-57,_,128-167,224-235
 endif
 
 "---------------------------------------------------------------------------
@@ -249,35 +212,19 @@ let $PATH = simplify($VIM . '/../../MacOS') . ':' . $PATH
 set migemodict=$VIMRUNTIME/dict/migemo-dict
 set migemo
 
-
 "---------------------------------------------------------------------------
-
-"カラースキーマを設定
-colorscheme hybrid
-
-" フォント指定
-set guifont=Source\ Code\ Pro:h12
-set linespace=6
-
-" 行番号
-set nocompatible
-set number
-
-" ウィンドウの右端で折り返さない
-set nowrap
-
-" 行終わりで右に移動したら次の行にいけるようにしたりなどする
-set whichwrap=b,s,h,l,<,>,[,]
-
-" 縦幅　デフォルトは24
-set lines=70
-
-" 横幅　デフォルトは80
-set columns=200
 
 if has('gui_macvim')
     set imdisable "IMを無効化
 endif
 
-" ページタブで開く
---remote-tab-silent
+" 縦幅　デフォルトは24
+set lines=25
+
+" 横幅　デフォルトは80
+set columns=300
+
+" フォント指定
+" set guifont=SourceHanCodeJP-Light:h14
+set guifont=源ノ角ゴシック\ Code\ JP\ Light:h12
+set linespace=6
