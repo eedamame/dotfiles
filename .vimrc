@@ -6,8 +6,11 @@ set nocompatible
 filetype off
 
 if has('vim_starting')
-  set runtimepath+=~/.vim/bundle/neobundle.vim
-  call neobundle#rc(expand('~/.vim/bundle/'))
+	set runtimepath+=~/.vim/bundle/neobundle.vim
+	" call neobundle#begin(expand('~/.vim/bundle/'))
+	call neobundle#begin(expand('~/.vim/bundle/'))
+	NeoBundleFetch 'Shougo/neobundle.vim'
+	call neobundle#end()
 endif
 
 NeoBundle 'w0ng/vim-hybrid'
@@ -21,6 +24,11 @@ NeoBundle 'kannokanno/previm.git'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'gist:hokaccha/411828', {
+\   'name': 'endtagcomment.vim',
+\   'script_type': 'plugin'
+\}
+NeoBundle 'editorconfig/editorconfig-vim'
 
 filetype plugin on
 filetype indent on
@@ -42,6 +50,12 @@ set undodir=~/vimundo
 set nowritebackup
 set nobackup
 
+" ectファイルのsyntaxhighlight
+au BufRead,BufNewFile *.ect set filetype=php
+
+" syntaxをonに
+syntax enable;
+
 " ctrl+j でノーマルモード
 imap <C-j> <C-[>
 
@@ -51,9 +65,26 @@ set clipboard=unnamed
 " backspaceで改行、タブ、スペースを削除
 set backspace=indent,eol,start
 
+"カラースキーマを設定
+colorscheme hybrid
+
+" フォント指定
+" set guifont=SourceHanCodeJP-Light:h14
+" set guifont=源ノ角ゴシック\ Code\ JP\ Light:h13
+" set linespace=6
+
+" 行番号
+set nocompatible
+set number
+
+" ウィンドウの右端で折り返さない
+set nowrap
+
+" 行終わりで右に移動したら次の行にいけるようにしたりなどする
+set whichwrap=b,s,h,<,>,[,]
+
 " コマンドライン上で、上を押すと上のディレクトリ、下を押すとしたのディレクトリに移動
 set wildmenu
-
 
 " カーソルのある行をハイライト
 autocmd WinEnter * setlocal cursorline
@@ -86,6 +117,9 @@ nnoremap <Space>7 vi'
 " ダブルクオーテーション内選択
 nnoremap <Space>2 vi"
 
+" 行終わりで右に移動したら次の行にいけるようにしたりなどする
+set whichwrap=b,s,h,l,<,>,[,]
+
 " Shift+Enter で <br>
 inoremap <S-Enter> <br><CR>
 nnoremap <S-Enter> a<br><CR><Esc>
@@ -95,9 +129,6 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " 自動でインデントしない
 " set noautoindent
 " filetype indent off
-
-" zencoding
-" let g:user_zen_expandabbr_key = '<C-e>'
 
 " emmet
 let g:user_emmet_expandabbr_key = '<c-e>'
@@ -138,5 +169,42 @@ let g:syntastic_auto_loc_list=2
 let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['js, css'], 'passive_filetypes': ['html'] }
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_javascript_checker = 'jshint'
-"
-"
+
+" atom.appで開く
+command! OpenAtom !start atom %
+
+"---------------------------------------------------------------------------
+" コンソールでのカラー表示のための設定(暫定的にUNIX専用)
+if has('unix') && !has('gui_running') && !has('gui_macvim')
+  let uname = system('uname')
+  if uname =~? "linux"
+    set term=builtin_linux
+  elseif uname =~? "freebsd"
+    set term=builtin_cons25
+  elseif uname =~? "Darwin"
+    set term=xterm-256color
+"    set term=beos-ansi
+  else
+    set term=builtin_xterm
+  endif
+  unlet uname
+endif
+
+"---------------------------------------------------------------------------
+" コンソール版で環境変数$DISPLAYが設定されていると起動が遅くなる件へ対応
+if !has('gui_running') && has('xterm_clipboard')
+  set clipboard=exclude:cons\\\|linux\\\|cygwin\\\|rxvt\\\|screen
+endif
+
+"---------------------------------------------------------------------------
+" プラットホーム依存の特別な設定
+
+" WinではPATHに$VIMが含まれていないときにexeを見つけ出せないので修正
+if has('win32') && $PATH !~? '\(^\|;\)' . escape($VIM, '\\') . '\(;\|$\)'
+  let $PATH = $VIM . ';' . $PATH
+endif
+
+if has('mac')
+  " Macではデフォルトの'iskeyword'がcp932に対応しきれていないので修正
+  set iskeyword=@,48-57,_,128-167,224-235
+endif
