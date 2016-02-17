@@ -1,4 +1,5 @@
 source ~/.bashrc
+source ~/.bash_login
 
 [[ -s ~/.nvm/nvm.sh ]] && . ~/.nvm/nvm.sh
 nvm use default
