@@ -171,7 +171,7 @@ let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['js, css'], 
 let g:syntastic_javascript_checkers=['eslint']
 
 " atom.appで開く
-command! OpenAtom !start atom %
+command! Atom !atom %
 
 "---------------------------------------------------------------------------
 " コンソールでのカラー表示のための設定(暫定的にUNIX専用)
