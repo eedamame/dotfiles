@@ -53,6 +53,9 @@ set nobackup
 " ectファイルのsyntaxhighlight
 au BufRead,BufNewFile *.ect set filetype=php
 
+" jsonのsyntaxhighlight
+autocmd BufNewFile,BufRead *.json set ft=javascript
+
 " syntaxをonに
 syntax enable;
 
