@@ -13,7 +13,7 @@ if has('vim_starting')
 	call neobundle#end()
 endif
 
-NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'altercation/vim-colors-solarized'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
@@ -66,7 +66,10 @@ set clipboard=unnamed
 set backspace=indent,eol,start
 
 "カラースキーマを設定
-colorscheme hybrid
+set background=dark
+"let g:hybrid_custom_term_colors = 1
+"let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+colorscheme solarized
 
 " フォント指定
 " set guifont=SourceHanCodeJP-Light:h14
