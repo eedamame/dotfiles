@@ -29,6 +29,7 @@ NeoBundle 'gist:hokaccha/411828', {
 \   'script_type': 'plugin'
 \}
 NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'scrooloose/nerdtree'
 
 filetype plugin on
 filetype indent on
