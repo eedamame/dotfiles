@@ -167,11 +167,18 @@ nmap gx <Plug>(openbrowser-smart-search)
 vmap gx <Plug>(openbrowser-smart-search)
 
 " syntastic
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height=4 "エラー表示ウィンドウの高さ
+let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['js, css'], 'passive_filetypes': ['html'] }
 " let g:syntastic_auto_loc_list = 1
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_check_on_open = 1
 
 " atom.appで開く
 command! Atom !atom %
