@@ -13,13 +13,20 @@ bind down:alt        resize +0   +10%
 bind right:ctrl;alt  resize -10% +0 bottom-right
 bind left:ctrl;alt   resize +10% +0 bottom-right
 bind up:ctrl;alt     resize +0   +10% bottom-right
-bind down:ctr2;alt   resize +0   -10% bottom-right
+bind down:ctrl;alt   resize +0   -10% bottom-right
 
 # Push Bindings
 bind right:ctrl;cmd  push right bar-resize:screenSizeX/2
 bind left:ctrl;cmd   push left  bar-resize:screenSizeX/2
 bind up:ctrl;cmd     push up    bar-resize:screenSizeY/2
 bind down:ctrl;cmd   push down  bar-resize:screenSizeY/2
+
+bind l:ctrl;cmd   push right bar-resize:screenSizeX/2
+bind h:ctrl;cmd   push left  bar-resize:screenSizeX/2
+bind k:ctrl;cmd   push up    bar-resize:screenSizeY/2
+bind j:ctrl;cmd   push down  bar-resize:screenSizeY/2
+
+bind ;:ctrl;cmd   push up  bar-resize:screenSizeY
 
 # Nudge Bindings
 bind right:shift;alt nudge +10% +0
@@ -46,6 +53,3 @@ bind down:cmd;alt focus behind
 
 # Window Hints
 bind esc:cmd hint
-
-
-bind a:alt	focus 'Google Chrome'
