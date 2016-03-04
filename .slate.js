@@ -23,8 +23,10 @@ var launch_and_focus = function(app_name) {
  
 var key_binds = {};
 key_binds['a:ctrl;cmd'] = launch_and_focus('Google Chrome');
-key_binds['v:ctrl;cmd'] = launch_and_focus('MacVim');
+key_binds['q:ctrl;cmd'] = launch_and_focus('iTerm');
+key_binds['m:ctrl;cmd'] = launch_and_focus('MacVim');
+key_binds['o:ctrl;cmd'] = launch_and_focus('Atom');
 key_binds['s:ctrl;cmd'] = launch_and_focus('Slack');
 key_binds['c:ctrl;cmd'] = launch_and_focus('CotEditor');
-key_binds['t:ctrl;cmd'] = launch_and_focus('iTerm');
+key_binds['z:ctrl;cmd'] = launch_and_focus('Finder');
 slate.bindAll(key_binds);
