@@ -183,6 +183,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['js, css'], 'passive_filetypes': ['html'] }
 " let g:syntastic_auto_loc_list = 1
 let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_css_checkers=['stylelint']
+let g:syntastic_scss_checkers=['stylelint']
+let g:syntastic_sass_checkers=['stylelint']
 let g:syntastic_check_on_open = 1
 
 " atom.appで開く
