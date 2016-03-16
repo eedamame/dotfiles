@@ -1,9 +1,15 @@
+source ~/git-completion.bash
+source ~/git-prompt.sh
+
 . ~/.nvm/nvm.sh
 export PATH=$PATH:/opt/local/bin/:/opt/local/sbin/
 export MANPATH=$MANPATH:/opt/local/man
 
 # 日付設定
 HISTTIMEFORMAT='%y/%m/%d %H:%M:%S ';
+
+# プロンプト表示
+PS1="\h@\u:\W\$(__git_ps1) \$ "
 
 # alias
 alias ll='ls -l'
