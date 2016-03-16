@@ -28,7 +28,7 @@ alias gho='gh-open $(ghq list -p | peco)'
 
 # ターミナルからMacVimを開くようにする
 #export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim'
+alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim --remote-tab-silent'
 #alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
 # gitから差分ファイルだけzipにまとめる
