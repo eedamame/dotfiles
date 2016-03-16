@@ -23,6 +23,7 @@ NeoBundle 'kannokanno/previm.git'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-singleton'
 NeoBundle 'gist:hokaccha/411828', {
 \   'name': 'endtagcomment.vim',
 \   'script_type': 'plugin'
@@ -38,6 +39,8 @@ NeoBundleCheck
 call neobundle#end()
 
 "---------------------------------------------------------------------------
+
+call singleton#enable()
 
 " バックアップファイル 
 set backupdir=~/vimbackup
