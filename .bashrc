@@ -18,7 +18,7 @@ alias ll='ls -l'
 alias lg='log --graph --decorate'
 
 # cd系 alias
-alias cdw='cd /Users/tachibana/_work/'
+alias cdw='cd ~/_work/'
 alias cdd='cd /Applications/MAMP/htdocs/'
 
 # その他 alias
