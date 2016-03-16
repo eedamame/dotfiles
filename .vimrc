@@ -114,6 +114,11 @@ set sidescrolloff=3
 " ステータスラインにファイルのパスと現在の文字コード等を出す
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
+" バッファの移動
+nnoremap <silent>bp :bprevious<CR>
+nnoremap <silent>bn :bnext<CR>
+nnoremap <silent>bf :b#<CR>
+
 "タブ切り替え
 nnoremap <C-Tab>   gt
 nnoremap <C-S-Tab> gT
