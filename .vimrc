@@ -94,7 +94,7 @@ set number
 set nowrap
 
 " 行終わりで右に移動したら次の行にいけるようにしたりなどする
-set whichwrap=b,s,h,<,>,[,]
+set whichwrap=b,s,h,l,<,>,[,],~
 
 " コマンドライン上で、上を押すと上のディレクトリ、下を押すとしたのディレクトリに移動
 set wildmenu
