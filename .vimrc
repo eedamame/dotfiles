@@ -63,6 +63,8 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 
 " syntaxをonに
 syntax enable;
+" dataURLなどで重くなりすぎるので最大文字数200にしておく
+set synmaxcol=200
 
 " ctrl+j でノーマルモード
 imap <C-j> <C-[>
