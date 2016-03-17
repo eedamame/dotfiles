@@ -42,6 +42,8 @@ call neobundle#end()
 
 call singleton#enable()
 
+let mapleader = "\<Space>"
+
 " バックアップファイル 
 set backupdir=~/vimbackup
 
@@ -117,9 +119,9 @@ set sidescrolloff=3
 set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 
 " バッファの移動
-nnoremap <silent>bp :bprevious<CR>
-nnoremap <silent>bn :bnext<CR>
-nnoremap <silent>bf :b#<CR>
+nnoremap <Leader>p :bprevious<CR>
+nnoremap <Leader>n :bnext<CR>
+nnoremap <Leader>f :b#<CR>
 
 "タブ切り替え
 nnoremap <C-Tab>   gt
