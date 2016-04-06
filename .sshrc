@@ -1,0 +1,3 @@
+alias lg='log --graph --decorate'
+alias ll='ls -l'
+alias co='checkout'
