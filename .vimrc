@@ -166,20 +166,6 @@ let g:user_emmet_expandabbr_key = '<c-e>'
 let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
 let g:neocomplcache_enable_underbar_completion = 1 " _区切りの補完を有効化
 
-" Load settings for each location.
-" プロジェクトごとに設定ファイル（.vimrc.local）をつくれるようにする
-augroup vimrc-local
-  autocmd!
-  autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
-augroup END
-
-function! s:vimrc_local(loc)
-  let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
-  for i in reverse(filter(files, 'filereadable(v:val)'))
-    source `=i`
-  endfor
-endfunction
-
 " previmでmarkdownファイルのプレビュー
 " let g:previm_open_cmd = 'open -a Chrome'
 augroup PrevimSettings
