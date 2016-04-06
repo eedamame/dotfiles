@@ -30,6 +30,8 @@ NeoBundle 'gist:hokaccha/411828', {
 \}
 NeoBundle 'editorconfig/editorconfig-vim'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'mxw/vim-jsx'
 
 filetype plugin on
 filetype indent on
@@ -62,6 +64,13 @@ au BufRead,BufNewFile *.ect set filetype=php
 
 " jsonのsyntaxhighlight
 autocmd BufNewFile,BufRead *.json set ft=javascript
+
+" typescriptのsyntaxhighlight
+autocmd BufRead,BufNewFile *.ts set ft=typescript
+autocmd BufRead,BufNewFile *.tsx set ft=typescript
+
+" jsxのsyntaxhighlight
+let g:jsx_ext_required = 0
 
 " syntaxをonに
 syntax enable;
