@@ -1,13 +1,14 @@
 helptags ~/.vim/doc
 
+ " Note: Skip initialization for vim-tiny or vim-small.
+ if 0 | endif
 "---------------------------------------------------------------------------
 " NeoBundle
-set nocompatible
-filetype off
-
-if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim
+if &compatible
+  set nocompatible " Be iMproved
 endif
+
+set runtimepath^=~/.vim/bundle/neobundle.vim/
 
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -36,9 +37,11 @@ NeoBundle 'mxw/vim-jsx'
 filetype plugin on
 filetype indent on
 
-NeoBundleCheck
-
 call neobundle#end()
+
+filetype plugin indent on
+
+NeoBundleCheck
 
 "---------------------------------------------------------------------------
 
