@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 01-Apr-2016.
+" Last Change: 19-May-2016.
 " Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
 " 解説:
@@ -227,4 +227,5 @@ set columns=300
 " フォント指定
 " set guifont=SourceHanCodeJP-Light:h14
 set guifont=源ノ角ゴシック\ Code\ JP\ Light:h12
+set guifont=mononoki-Regular:h14
 set linespace=6
