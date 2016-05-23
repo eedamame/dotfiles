@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 16-Jun-2015.
+" Last Change: 19-May-2016.
 " Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
 " 解説:
@@ -132,11 +132,11 @@ set smartcase
 " 編集に関する設定:
 "
 " タブの画面上での幅
-set tabstop=4
+set tabstop=2
 " 自動インデントでずれる幅
-set shiftwidth=4
+set shiftwidth=2
 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
-set softtabstop=4
+set softtabstop=2
 " タブをスペースに展開しない (expandtab:展開する)
 set noexpandtab
 " 自動的にインデントする (noautoindent:インデントしない)
@@ -227,4 +227,5 @@ set columns=300
 " フォント指定
 " set guifont=SourceHanCodeJP-Light:h14
 set guifont=源ノ角ゴシック\ Code\ JP\ Light:h12
+set guifont=mononoki-Regular:h14
 set linespace=6

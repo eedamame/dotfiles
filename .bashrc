@@ -1,9 +1,15 @@
+source ~/git-completion.bash
+source ~/git-prompt.sh
+
 . ~/.nvm/nvm.sh
 export PATH=$PATH:/opt/local/bin/:/opt/local/sbin/
 export MANPATH=$MANPATH:/opt/local/man
 
 # 日付設定
 HISTTIMEFORMAT='%y/%m/%d %H:%M:%S ';
+
+# プロンプト表示
+PS1="\h@\u:\W\$(__git_ps1) \$ "
 
 # alias
 alias ll='ls -l'
@@ -12,7 +18,7 @@ alias ll='ls -l'
 alias lg='log --graph --decorate'
 
 # cd系 alias
-alias cdw='cd /Users/tachibana/_work/'
+alias cdw='cd ~/_work/'
 alias cdd='cd /Applications/MAMP/htdocs/'
 
 # その他 alias
@@ -22,7 +28,7 @@ alias gho='gh-open $(ghq list -p | peco)'
 
 # ターミナルからMacVimを開くようにする
 #export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim'
+alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim --remote-tab-silent'
 #alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
 # gitから差分ファイルだけzipにまとめる
@@ -52,33 +58,6 @@ function git_diff_archive()
 # topを起動している間tabの色が黄緑っぽくなる。
 alias top='tab-color 134 200 0; top; tab-reset'
 
-# 連番ファイルを複製
-function gej() {
-	if [ $2 -eq '08' ] ; then
-		currentNum='08'
-		newNum='09'
-	elif [ $2 -eq '09' ] ; then
-		currentNum='09'
-		newNum='10'
-	elif [ $(($2 + 1)) -lt 10 ] ; then
-		currentNum=$2
-		newNum='0'$(($2 + 1))
-	else
-		currentNum=$2
-		newNum=$(($2 + 1))
-	fi
-	currentFile=$1$currentNum'.html'
-	newFile=$1$newNum'.html'
-
-	cp $currentFile $newFile && mvim $newFile
-}
-
 # GO
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
-
-# direnv(classi)
-eval "$(direnv hook bash)"
-
-# apply japan
-#export USE_NFS=1
