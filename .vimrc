@@ -17,6 +17,7 @@ NeoBundle 'w0ng/vim-hybrid'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'miripiruni/CSScomb-for-Vim'
@@ -46,12 +47,26 @@ set directory=~/vimbackup
 " undoファイル
 set undodir=~/vimundo
 
+set nocompatible
+
+" 行終わりで右に移動したら次の行にいけるようにしたりなどする
+set whichwrap=b,s,h,l,<,>,~,[,]
+
 " カラーラベルを削除しないように、バックアップをしないようにする
 set nowritebackup
 set nobackup
 
 " ectファイルのsyntaxhighlight
 au BufRead,BufNewFile *.ect set filetype=php
+" twig
+au BufRead,BufNewFile *.twig set filetype=htmljinja
+" jsonのsyntaxhighlight
+autocmd BufNewFile,BufRead *.json set ft=javascript
+" typescriptのsyntaxhighlight
+autocmd BufRead,BufNewFile *.ts set ft=typescript
+autocmd BufRead,BufNewFile *.tsx set ft=typescript
+" jsxのsyntaxhighlight
+let g:jsx_ext_required = 0
 
 " syntaxをonに
 syntax enable;
@@ -65,23 +80,11 @@ set clipboard=unnamed
 " backspaceで改行、タブ、スペースを削除
 set backspace=indent,eol,start
 
-"カラースキーマを設定
-colorscheme hybrid
-
-" フォント指定
-" set guifont=SourceHanCodeJP-Light:h14
-" set guifont=源ノ角ゴシック\ Code\ JP\ Light:h13
-" set linespace=6
-
 " 行番号
-set nocompatible
 set number
 
 " ウィンドウの右端で折り返さない
 set nowrap
-
-" 行終わりで右に移動したら次の行にいけるようにしたりなどする
-set whichwrap=b,s,h,<,>,[,]
 
 " コマンドライン上で、上を押すと上のディレクトリ、下を押すとしたのディレクトリに移動
 set wildmenu
@@ -117,14 +120,11 @@ nnoremap <Space>7 vi'
 " ダブルクオーテーション内選択
 nnoremap <Space>2 vi"
 
-" 行終わりで右に移動したら次の行にいけるようにしたりなどする
-set whichwrap=b,s,h,l,<,>,[,]
-
 " Shift+Enter で <br>
 inoremap <S-Enter> <br><CR>
 nnoremap <S-Enter> a<br><CR><Esc>
 
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " 自動でインデントしない
 " set noautoindent
@@ -134,8 +134,8 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 let g:user_emmet_expandabbr_key = '<c-e>'
 
 " neocomplcache
-let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
-let g:neocomplcache_enable_underbar_completion = 1 " _区切りの補完を有効化
+" let g:neocomplcache_enable_at_startup = 1 " 起動時に有効化
+" let g:neocomplcache_enable_underbar_completion = 1 " _区切りの補完を有効化
 
 " Load settings for each location.
 " プロジェクトごとに設定ファイル（.vimrc.local）をつくれるようにする
@@ -158,20 +158,48 @@ augroup PrevimSettings
     autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
 augroup END
 
-" open-browser.vim
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
+" " open-browser.vim
+" let g:netrw_nogx = 1 " disable netrw's gx mapping.
+" nmap gx <Plug>(openbrowser-smart-search)
+" vmap gx <Plug>(openbrowser-smart-search)
 
 " syntastic
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=2
 let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['js, css'], 'passive_filetypes': ['html'] }
 " let g:syntastic_auto_loc_list = 1
-" let g:syntastic_javascript_checker = 'jshint'
+" let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_css_checkers=['stylelint']
+let g:syntastic_scss_checkers=['stylelint']
+let g:syntastic_sass_checkers=['stylelint']
+let g:syntastic_check_on_open = 1
 
-" atom.appで開く
-command! OpenAtom !start atom %
+""" unite.vim
+" バッファ一覧
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+" ファイル一覧
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" レジスタ一覧
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+" 最近使用したファイル一覧
+nnoremap <silent> ,um :<C-u>Unite file_mru<CR>
+" 常用セット
+nnoremap <silent> ,uu :<C-u>Unite buffer file_mru<CR>
+" 全部乗せ
+nnoremap <silent> ,ua :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+" ウィンドウを分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+au FileType unite inoremap <silent> <buffer> <expr> <C-j> unite#do_action('split')
+" ウィンドウを縦に分割して開く
+au FileType unite nnoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vsplit')
+" ESCキーを2回押すと終了する
+au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
+au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
+
+
+" 行終わりで右に移動したら次の行にいけるようにしたりなどする
+autocmd FileType vim setlocal whichwrap=b,s,h,l,<,>,[,],~
 
 "---------------------------------------------------------------------------
 " コンソールでのカラー表示のための設定(暫定的にUNIX専用)

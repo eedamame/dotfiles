@@ -3,7 +3,7 @@
 " An example for a Japanese version vimrc file.
 " 日本語版のデフォルト設定ファイル(vimrc) - Vim7用試作
 "
-" Last Change: 19-May-2016.
+" Last Change: 20-Jul-2016.
 " Maintainer:  MURAOKA Taro <koron.kaoriya@gmail.com>
 "
 " 解説:
@@ -214,6 +214,12 @@ set migemo
 
 "---------------------------------------------------------------------------
 
+"カラースキーマを設定
+set background=dark
+"let g:hybrid_custom_term_colors = 1
+"let g:hybrid_reduced_contrast = 1 " Remove this line if using the default palette.
+colorscheme solarized
+
 if has('gui_macvim')
     set imdisable "IMを無効化
 endif
@@ -229,3 +235,24 @@ set columns=300
 set guifont=源ノ角ゴシック\ Code\ JP\ Light:h12
 set guifont=mononoki-Regular:h14
 set linespace=6
+
+" タブ、空白、改行の可視化
+set list
+set listchars=tab:>.,trail:_,eol:↲,extends:>,precedes:<,nbsp:%
+
+" 全角スペースをハイライト表示
+function! ZenkakuSpace()
+    highlight ZenkakuSpace cterm=reverse ctermfg=DarkMagenta gui=reverse guifg=DarkMagenta
+endfunction
+
+if has('syntax')
+    augroup ZenkakuSpace
+        autocmd!
+        autocmd ColorScheme       * call ZenkakuSpace()
+        autocmd VimEnter,WinEnter * match ZenkakuSpace /　/
+    augroup END
+    call ZenkakuSpace()
+endif
+
+" atom.appで開く
+command! Atom !atom %
