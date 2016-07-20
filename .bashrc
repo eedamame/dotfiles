@@ -61,3 +61,18 @@ alias top='tab-color 134 200 0; top; tab-reset'
 # GO
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin
+
+# phpenv
+PATH=$HOME/.phpenv/bin:$PATH # Add phpenv to PATH for scripting
+eval "$(phpenv init -)"
+
+# anyenv
+if [ -d $HOME/.anyenv ] ; then
+    export PATH="$HOME/.anyenv/bin:$PATH"
+    eval "$(anyenv init -)"
+    # tmux対応
+    for D in `\ls $HOME/.anyenv/envs`
+    do
+        export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
+    done
+fi
