@@ -1,44 +1,69 @@
 helptags ~/.vim/doc
 
 "---------------------------------------------------------------------------
-" NeoBundle
-set nocompatible
-filetype off
-
-if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim
-	" call neobundle#begin(expand('~/.vim/bundle/'))
-	call neobundle#begin(expand('~/.vim/bundle/'))
-	NeoBundleFetch 'Shougo/neobundle.vim'
-	call neobundle#end()
+"dein Scripts-----------------------------
+if &compatible
+  set nocompatible               " Be iMproved
 endif
 
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'miripiruni/CSScomb-for-Vim'
-NeoBundle 'kannokanno/previm.git'
-NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'gist:hokaccha/411828', {
-\   'name': 'endtagcomment.vim',
-\   'script_type': 'plugin'
-\}
-NeoBundle 'editorconfig/editorconfig-vim'
+set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
 
-filetype plugin on
-filetype indent on
+if dein#load_state('~/.vim/bundle/')
+  call dein#begin('~/.vim/bundle/')
 
-NeoBundleCheck
+  " Let dein manage dein
+  call dein#add('~/.vim/bundle/repos/github.com/Shougo/dein.vim')
 
-"---------------------------------------------------------------------------
+  " Add or remove your plugins here:
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
 
-" バックアップファイル 
+  " You can specify revision/branch/tag.
+  call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+  " add myself
+  call dein#add('altercation/vim-colors-solarized')
+  call dein#add('w0ng/vim-hybrid')
+  call dein#add('Shougo/neocomplcache')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/neomru.vim')
+  call dein#add('tpope/vim-surround')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('miripiruni/CSScomb-for-Vim')
+  call dein#add('kannokanno/previm.git')
+  call dein#add('tyru/open-browser.vim')
+  call dein#add('scrooloose/syntastic')
+  call dein#add('thinca/vim-quickrun')
+  call dein#add('gist:hokaccha/411828', {
+  \   'name': 'endtagcomment.vim'
+  \})
+  call dein#add('editorconfig/editorconfig-vim')
+  call dein#add('terryma/vim-multiple-cursors')
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
+
+  " syntaxhighlight
+  call dein#add('digitaltoad/vim-pug')
+  call dein#add('posva/vim-vue')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+"if dein#check_install()
+"  call dein#install()
+"endif
+
+"End dein Scripts-------------------------
+
+
+" バックアップファイル
 set backupdir=~/vimbackup
 
 " スワップファイル
@@ -46,6 +71,9 @@ set directory=~/vimbackup
 
 " undoファイル
 set undodir=~/vimundo
+
+" vim-airline
+let g:airline#extensions#tabline#enabled = 1
 
 set nocompatible
 
@@ -56,6 +84,10 @@ set whichwrap=b,s,h,l,<,>,~,[,]
 set nowritebackup
 set nobackup
 
+" vueファイルのsyntaxhighlight
+autocmd FileType vue syntax sync fromstart
+au BufNewFile,BufRead *.vue setf vue
+autocmd BufRead,BufNewFile *.vue set filetype=vue.html.pug.javascript.css
 " ectファイルのsyntaxhighlight
 au BufRead,BufNewFile *.ect set filetype=php
 " twig
@@ -201,6 +233,20 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 " 行終わりで右に移動したら次の行にいけるようにしたりなどする
 autocmd FileType vim setlocal whichwrap=b,s,h,l,<,>,[,],~
 
+" 対応htmlタグにジャンプ
+set showmatch " 括弧の対応関係を一瞬表示する
+source $VIMRUNTIME/macros/matchit.vim " Vimの「%」を拡張する
+
+" terryma/vim-multiple-cursors の有効化
+let g:multi_cursor_use_default_mapping=0
+" Default mapping
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+" Map start key separately from next key
+let g:multi_cursor_start_key='<C-m>'
+
 "---------------------------------------------------------------------------
 " コンソールでのカラー表示のための設定(暫定的にUNIX専用)
 if has('unix') && !has('gui_running') && !has('gui_macvim')
@@ -210,8 +256,10 @@ if has('unix') && !has('gui_running') && !has('gui_macvim')
   elseif uname =~? "freebsd"
     set term=builtin_cons25
   elseif uname =~? "Darwin"
-    set term=xterm-256color
-"    set term=beos-ansi
+    "set term=xterm-256color
+     if has('nvim')
+       set termguicolors
+     endif
   else
     set term=builtin_xterm
   endif
@@ -236,3 +284,11 @@ if has('mac')
   " Macではデフォルトの'iskeyword'がcp932に対応しきれていないので修正
   set iskeyword=@,48-57,_,128-167,224-235
 endif
+
+" カラースキーマ
+set background=dark
+" solarized options 
+let g:solarized_termcolors = 256
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+colorscheme solarized
