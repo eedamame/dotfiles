@@ -3,7 +3,7 @@ helptags ~/.vim/doc
 "---------------------------------------------------------------------------
 "dein Scripts-----------------------------
 if &compatible
-  set nocompatible               " Be iMproved
+  set nocompatible " Be iMproved
 endif
 
 set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
@@ -34,19 +34,22 @@ if dein#load_state('~/.vim/bundle/')
   call dein#add('tyru/open-browser.vim')
   call dein#add('scrooloose/syntastic')
   call dein#add('thinca/vim-quickrun')
-  call dein#add('gist:hokaccha/411828', {
-  \   'name': 'endtagcomment.vim'
-  \})
   call dein#add('editorconfig/editorconfig-vim')
   call dein#add('terryma/vim-multiple-cursors')
   call dein#add('vim-airline/vim-airline')
   call dein#add('vim-airline/vim-airline-themes')
+  call dein#add('justinmk/vim-dirvish')
 
   " syntaxhighlight
   call dein#add('digitaltoad/vim-pug')
   call dein#add('posva/vim-vue')
+  call dein#add('pangloss/vim-javascript')
+  call dein#add('mxw/vim-jsx')
+  call dein#add('slim-template/vim-slim')
 
-  " Required:
+  " linter
+  call dein#add('w0rp/ale')
+
   call dein#end()
   call dein#save_state()
 endif
@@ -56,9 +59,9 @@ filetype plugin indent on
 syntax enable
 
 " If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
+if dein#check_install()
+  call dein#install()
+endif
 
 "End dein Scripts-------------------------
 
@@ -99,6 +102,8 @@ autocmd BufRead,BufNewFile *.ts set ft=typescript
 autocmd BufRead,BufNewFile *.tsx set ft=typescript
 " jsxのsyntaxhighlight
 let g:jsx_ext_required = 0
+" slimのsyntaxhighlight
+autocmd BufRead,BufNewFile *.slim setfiletype slim
 
 " syntaxをonに
 syntax enable;
@@ -156,6 +161,11 @@ nnoremap <Space>2 vi"
 inoremap <S-Enter> <br><CR>
 nnoremap <S-Enter> a<br><CR><Esc>
 
+" tab key -> 2space
+set expandtab
+set tabstop=2
+set shiftwidth=2
+
 " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " 自動でインデントしない
@@ -196,15 +206,15 @@ augroup END
 " vmap gx <Plug>(openbrowser-smart-search)
 
 " syntastic
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=2
-let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['js, css'], 'passive_filetypes': ['html'] }
+" let g:syntastic_enable_signs=1
+" let g:syntastic_auto_loc_list=2
+" let g:syntastic_mode_map = { 'mode': 'active', 'active_filetypes': ['js, css'], 'passive_filetypes': ['html'] }
 " let g:syntastic_auto_loc_list = 1
 " let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_css_checkers=['stylelint']
-let g:syntastic_scss_checkers=['stylelint']
-let g:syntastic_sass_checkers=['stylelint']
-let g:syntastic_check_on_open = 1
+" let g:syntastic_css_checkers=['stylelint']
+" let g:syntastic_scss_checkers=['stylelint']
+" let g:syntastic_sass_checkers=['stylelint']
+" let g:syntastic_check_on_open = 1
 
 """ unite.vim
 " バッファ一覧
@@ -229,6 +239,9 @@ au FileType unite inoremap <silent> <buffer> <expr> <C-l> unite#do_action('vspli
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> q
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>q
 
+" tab一覧
+nnoremap <silent> ,ut :<C-u>Unite tab<CR>
+
 
 " 行終わりで右に移動したら次の行にいけるようにしたりなどする
 autocmd FileType vim setlocal whichwrap=b,s,h,l,<,>,[,],~
@@ -246,6 +259,16 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 " Map start key separately from next key
 let g:multi_cursor_start_key='<C-m>'
+
+" linter
+let g:airline#extensions#ale#enabled = 1
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+
+let g:sass_lint_config = './src/github.com/eedamame/farmfes-front/.sasslint.yml'
+
+packloadall
+
+silent! helptags ALL
 
 "---------------------------------------------------------------------------
 " コンソールでのカラー表示のための設定(暫定的にUNIX専用)

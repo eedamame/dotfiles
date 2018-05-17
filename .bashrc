@@ -22,6 +22,7 @@ alias ll='ls -l'
 
 # git alias
 alias lg='log --graph --decorate'
+alias gg='git grep'
 
 # cd系 alias
 alias cdw='cd ~/_work/'
@@ -44,9 +45,10 @@ peco-select-history() {
 }
 alias psh='peco-select-history'
 
+
 # ターミナルからMacVimを開くようにする
 #export EDITOR=/Applications/MacVim.app/Contents/MacOS/Vim
-alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim --remote-tab-silent'
+alias mvim='/Applications/MacVim.app/Contents/MacOS/mvim -g --remote-tab-silent'
 #alias vim='env LANG=ja_JP.UTF-8 /Applications/MacVim.app/Contents/MacOS/Vim "$@"'
 
 # gitから差分ファイルだけzipにまとめる
@@ -78,7 +80,18 @@ alias top='tab-color 134 200 0; top; tab-reset'
 
 # GO
 export GOPATH=$HOME
-export PATH=$PATH:$GOPATH/bin
+GO_BIN=$GOPATH/bin
+export GOROOT=/usr/local/opt/go/libexec
+export PATH=$PATH:$GOPATH/src/github.com/
+# PATH=$GOPATH/bin:$PATH
+
+# export PATH=$PATH:$GOPATH/bin
+# export GOPATH=$HOME
+# export GOPATH=$HOME/src/github.com/
+
+# export GOROOT=/usr/local/opt/go/libexec
+# export GOPATH=$HOME
+# export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # phpenv
 PATH=$HOME/.phpenv/bin:$PATH # Add phpenv to PATH for scripting

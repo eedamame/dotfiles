@@ -10,3 +10,5 @@ export NODE_PATH=$npm_dir
 #rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+[[ -s "/Users/tachibana/.gvm/scripts/gvm" ]] && source "/Users/tachibana/.gvm/scripts/gvm"
