@@ -19,6 +19,9 @@ PS1="\h@\u:\W\$(__git_ps1) \$ "
 
 # alias
 alias ll='ls -l'
+alias be='bundle exec'
+alias gp='cd $(ghq list -p | peco)'
+alias gho='gh-open $(ghq list -p | peco)'
 
 # git alias
 alias lg='log --graph --decorate'
@@ -27,11 +30,6 @@ alias gg='git grep'
 # cd系 alias
 alias cdw='cd ~/_work/'
 alias cdd='cd /Applications/MAMP/htdocs/'
-
-# その他 alias
-alias be='bundle exec'
-alias gp='cd $(ghq list -p | peco)'
-alias gho='gh-open $(ghq list -p | peco)'
 
 # headless chrome
 # canaryのalias
@@ -72,8 +70,10 @@ function git_diff_archive()
   git archive --format=zip --prefix=root/ $h `eval $diff` -o archive.zip
 }
 
-# タイトルバーにディレクトリ名を表示
-# function chpwd() { ls; echo -ne "\033]0;$(pwd | rev | awk -F \/ '{print "/"$1"/"$2}'| rev)\007"}
+# ターミナルのタイトルバーに任意の名前をつける
+function tt() {
+  echo -e '\033]2;🐶'$1'🐶\007'
+}
 
 # topを起動している間tabの色が黄緑っぽくなる。
 alias top='tab-color 134 200 0; top; tab-reset'
