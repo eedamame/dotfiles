@@ -117,3 +117,9 @@ if [ -d $HOME/.anyenv ] ; then
         export PATH="$HOME/.anyenv/envs/$D/shims:$PATH"
     done
 fi
+
+# android studio
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export JAVA_HOME=`/usr/libexec/java_home -v "1.8" -F`
