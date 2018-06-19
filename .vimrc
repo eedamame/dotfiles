@@ -21,7 +21,7 @@ if dein#load_state('~/.vim/bundle/')
   " You can specify revision/branch/tag.
   call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
-  " add myself
+  " add myself ------------------------------------
   call dein#add('altercation/vim-colors-solarized')
   call dein#add('w0ng/vim-hybrid')
   call dein#add('Shougo/neocomplcache')
@@ -40,15 +40,22 @@ if dein#load_state('~/.vim/bundle/')
   call dein#add('vim-airline/vim-airline-themes')
   call dein#add('justinmk/vim-dirvish')
 
+  " typescript
+  call dein#add('Quramy/tsuquyomi')
+
   " syntaxhighlight
   call dein#add('digitaltoad/vim-pug')
   call dein#add('posva/vim-vue')
   call dein#add('pangloss/vim-javascript')
   call dein#add('mxw/vim-jsx')
   call dein#add('slim-template/vim-slim')
+  call dein#add('leafgarland/typescript-vim')
 
   " linter
   call dein#add('w0rp/ale')
+
+  " formatter
+  call dein#add('prettier/vim-prettier')
 
   call dein#end()
   call dein#save_state()
@@ -263,8 +270,14 @@ let g:multi_cursor_start_key='<C-m>'
 " linter
 let g:airline#extensions#ale#enabled = 1
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fix_on_save = 1
 
 let g:sass_lint_config = './src/github.com/eedamame/farmfes-front/.sasslint.yml'
+
+" typescript
+let g:tsuquyomi_completion_detail = 1
 
 packloadall
 
