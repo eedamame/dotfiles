@@ -42,6 +42,7 @@ peco-select-history() {
     READLINE_POINT=${#l}
 }
 alias psh='peco-select-history'
+bind -x '"\C-r": peco-select-history'
 
 
 # ターミナルからMacVimを開くようにする
