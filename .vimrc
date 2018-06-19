@@ -81,6 +81,7 @@ set directory=~/vimbackup
 
 " undoファイル
 set undodir=~/vimundo
+set undofile
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
