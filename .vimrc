@@ -1,5 +1,5 @@
-helptags ~/.vim/doc
-
+" helptags ~/.vim/doc
+"
 "---------------------------------------------------------------------------
 "dein Scripts-----------------------------
 if &compatible
@@ -74,13 +74,13 @@ endif
 
 
 " バックアップファイル
-set backupdir=~/vimbackup
+set backupdir=~/.vim/vimbackup
 
 " スワップファイル
-set directory=~/vimbackup
+set directory=~/.vim/vimbackup
 
 " undoファイル
-set undodir=~/vimundo
+set undodir=~/.vim/vimundo
 set undofile
 
 " vim-airline
@@ -272,7 +272,7 @@ let g:multi_cursor_start_key='<C-m>'
 let g:airline#extensions#ale#enabled = 1
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
+let g:ale_fixers['javascript'] = ['prettier-eslint']
 let g:ale_fix_on_save = 1
 
 let g:sass_lint_config = './src/github.com/eedamame/farmfes-front/.sasslint.yml'
@@ -332,4 +332,65 @@ colorscheme solarized
 
 " エンコード
 set encoding=utf-8
-set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+set fileencodings=utf-8,iso-2022-jp,cp932,sjis,euc-jp
+
+" 不可視文字の表示
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
+
+" ref: https://gist.github.com/hokaccha/411828
+" こういうHTMLがあったときに
+" <div id="hoge" class="fuga">
+" ...
+" </div>
+"
+" 実行するとこうなる
+" <div id="hoge" class="fuga">
+" ...
+" <!-- /div#hoge.fuga --></div>
+
+function! Endtagcomment()
+    let reg_save = @@
+
+    try
+        silent normal vaty
+    catch
+        execute "normal \<Esc>"
+        echohl ErrorMsg
+        echo 'no match html tags'
+        echohl None
+        return
+    endtry
+
+    let html = @@
+
+    let start_tag = matchstr(html, '\v(\<.{-}\>)')
+    let tag_name  = matchstr(start_tag, '\v([a-zA-Z]+)')
+
+    let id = ''
+    let id_match = matchlist(start_tag, '\vid\=["'']([^"'']+)["'']')
+    if exists('id_match[1]')
+        let id = '#' . id_match[1]
+    endif
+
+    let class = ''
+    let class_match = matchlist(start_tag, '\vclass\=["'']([^"'']+)["'']')
+    if exists('class_match[1]')
+        let class = '.' . join(split(class_match[1], '\v\s+'), '.')
+    endif
+
+    execute "normal `>va<\<Esc>`<"
+
+    let comment = g:endtagcommentFormat
+    let comment = substitute(comment, '%tag_name', tag_name, 'g')
+    let comment = substitute(comment, '%id', id, 'g')
+    let comment = substitute(comment, '%class', class, 'g')
+    let @@ = comment
+
+    normal ""P
+
+    let @@ = reg_save
+endfunction
+
+let g:endtagcommentFormat = '<!-- /%tag_name%id%class -->'
+nnoremap ,t :<C-u>call Endtagcomment()<CR>
