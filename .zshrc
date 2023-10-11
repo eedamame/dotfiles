@@ -1,5 +1,5 @@
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
+# export ZPLUG_HOME=/usr/local/opt/zplug
+# source $ZPLUG_HOME/init.zsh
 
 # 少し凝った zshrc
 # License : MIT
@@ -168,3 +168,27 @@ case ${OSTYPE} in
 esac
 
 # vim:set ft=zsh:
+
+
+# alias
+alias ll='ls -l'
+alias be='bundle exec'
+alias gp='cd $(ghq list -p | peco)'
+alias gho='gh-open $(ghq list -p | peco)'
+
+# direnv
+eval "$(direnv hook zsh)"
+
+# volta
+
+# nvm
+#export NVM_DIR=~/.nvm
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+#
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+ 
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm 
+ 
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
