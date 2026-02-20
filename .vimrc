@@ -1,88 +1,66 @@
-" helptags ~/.vim/doc
-"
 "---------------------------------------------------------------------------
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible " Be iMproved
+" 1. vim-jetpack
+"---------------------------------------------------------------------------
+let s:jetpackfile = expand('<sfile>:p:h') .. '/pack/jetpack/opt/vim-jetpack/plugin/jetpack.vim'
+let s:jetpackurl = "https://raw.githubusercontent.com/tani/vim-jetpack/master/plugin/jetpack.vim"
+if !filereadable(s:jetpackfile)
+  call system(printf('curl -fsSLo %s --create-dirs %s', s:jetpackfile, s:jetpackurl))
 endif
 
-"set runtimepath+=~/.vim/bundle/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.local/share/vim-jetpack
 
-if &compatible
-  set nocompatible
+"---------------------------------------------------------------------------
+" 2. plugin list
+"---------------------------------------------------------------------------
+packadd vim-jetpack
+call jetpack#begin()
+
+Jetpack 'tani/vim-jetpack', { 'opt': 1 }
+
+Jetpack 'Shougo/deoplete.nvim'
+if !has('nvim')
+  Jetpack 'roxma/nvim-yarp'
+  Jetpack 'roxma/vim-hug-neovim-rpc'
 endif
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
+Jetpack 'Shougo/neosnippet.vim'
+Jetpack 'Shougo/neosnippet-snippets'
+Jetpack 'Shougo/vimshell', { 'rev': '3787e5' }
+Jetpack 'altercation/vim-colors-solarized'
+Jetpack 'w0ng/vim-hybrid'
+Jetpack 'Shougo/neocomplcache'
+Jetpack 'Shougo/unite.vim'
+Jetpack 'Shougo/neomru.vim'
+Jetpack 'tpope/vim-surround'
+Jetpack 'mattn/emmet-vim'
+Jetpack 'miripiruni/CSScomb-for-Vim'
+Jetpack 'kannokanno/previm'
+Jetpack 'tyru/open-browser.vim'
+Jetpack 'thinca/vim-quickrun'
+Jetpack 'editorconfig/editorconfig-vim'
+Jetpack 'terryma/vim-multiple-cursors'
+Jetpack 'vim-airline/vim-airline'
+Jetpack 'vim-airline/vim-airline-themes'
+Jetpack 'justinmk/vim-dirvish'
 
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
+" Typescript / Syntax
+Jetpack 'Quramy/tsuquyomi'
+Jetpack 'digitaltoad/vim-pug'
+Jetpack 'posva/vim-vue'
+Jetpack 'pangloss/vim-javascript'
+Jetpack 'mxw/vim-jsx'
+Jetpack 'slim-template/vim-slim'
+Jetpack 'leafgarland/typescript-vim'
 
-  " Add or remove your plugins here:
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('Shougo/neosnippet-snippets')
+" Linter / Formatter
+Jetpack 'w0rp/ale'
+Jetpack 'prettier/vim-prettier'
 
-  " You can specify revision/branch/tag.
-  call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-  " add myself ------------------------------------
-  call dein#add('altercation/vim-colors-solarized')
-  call dein#add('w0ng/vim-hybrid')
-  call dein#add('Shougo/neocomplcache')
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/neomru.vim')
-  call dein#add('tpope/vim-surround')
-  call dein#add('mattn/emmet-vim')
-  call dein#add('miripiruni/CSScomb-for-Vim')
-  call dein#add('kannokanno/previm.git')
-  call dein#add('tyru/open-browser.vim')
-  " call dein#add('scrooloose/syntastic')
-  call dein#add('thinca/vim-quickrun')
-  call dein#add('editorconfig/editorconfig-vim')
-  call dein#add('terryma/vim-multiple-cursors')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
-  call dein#add('justinmk/vim-dirvish')
-
-  " typescript
-  call dein#add('Quramy/tsuquyomi')
-
-  " syntaxhighlight
-  call dein#add('digitaltoad/vim-pug')
-  call dein#add('posva/vim-vue')
-  call dein#add('pangloss/vim-javascript')
-  call dein#add('mxw/vim-jsx')
-  call dein#add('slim-template/vim-slim')
-  call dein#add('leafgarland/typescript-vim')
-
-  " linter
-  call dein#add('w0rp/ale')
-
-  " formatter
-  call dein#add('prettier/vim-prettier')
-
-
-  call dein#end()
-  call dein#save_state()
-endif
+call jetpack#end()
 
 " Required:
 filetype plugin indent on
 syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-"End dein Scripts-------------------------
-
 
 " バックアップファイル
 set backupdir=~/.vim/vimbackup
@@ -335,7 +313,7 @@ endif
 
 " カラースキーマ
 set background=dark
-" solarized options 
+" solarized options
 let g:solarized_termcolors = 256
 let g:solarized_visibility = "high"
 let g:solarized_contrast = "high"
